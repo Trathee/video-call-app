@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/video-call-app/static/css/main.e6c13ad2.css",
+    "main.js": "/video-call-app/static/js/main.97fb55fc.js",
+    "static/js/373.ca784f4c.chunk.js": "/video-call-app/static/js/373.ca784f4c.chunk.js",
+    "index.html": "/video-call-app/index.html",
+    "main.e6c13ad2.css.map": "/video-call-app/static/css/main.e6c13ad2.css.map",
+    "main.97fb55fc.js.map": "/video-call-app/static/js/main.97fb55fc.js.map",
+    "373.ca784f4c.chunk.js.map": "/video-call-app/static/js/373.ca784f4c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.97fb55fc.js"
+  ]
+}
