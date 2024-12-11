@@ -2,32 +2,22 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
-const cors = require('cors');
 
 const app = express();
-app.use(cors());
-
 const server = http.createServer(app);
-const io = socketIo(server, {
-  cors: {
-    origin: process.env.NODE_ENV === 'production' ? 'https://your-app-name.onrender.com' : '*',
-    methods: ["GET", "POST"]
-  }
-});
+const io = socketIo(server);
 
-// Always serve static files in production
+// Serve static files from the React app build folder
 app.use(express.static(path.join(__dirname, 'client/build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
 
-const generateUniqueId = () => {
-  const timestamp = Date.now().toString(36);
-  const randomStr = Math.random().toString(36).substring(2, 8);
-  return `user-${timestamp}-${randomStr}`;
-};
-
+// Socket.io connection
 io.on('connection', (socket) => {
+  const generateUniqueId = () => {
+    const timestamp = Date.now().toString(36);
+    const randomStr = Math.random().toString(36).substring(2, 8);
+    return `user-${timestamp}-${randomStr}`;
+  };
+
   const uniqueId = generateUniqueId();
   console.log('User connected with ID:', uniqueId);
   
@@ -67,7 +57,13 @@ io.on('connection', (socket) => {
   });
 });
 
+// Serve React app's index.html for all non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+// Set up the server to listen on a dynamic port
 const port = process.env.PORT || 5000;
 server.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+  console.log(`Server is running on port ${port}`);
 });
