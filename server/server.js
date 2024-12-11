@@ -8,7 +8,7 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 // Serve static files from the React app build folder
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Socket.io connection
 io.on('connection', (socket) => {
@@ -59,7 +59,11 @@ io.on('connection', (socket) => {
 
 // Serve React app's index.html for all non-API routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
+app.get('/test', (req, res) => {
+  res.send('Server is working!');
 });
 
 // Set up the server to listen on a dynamic port
